@@ -11,9 +11,11 @@ const MainLayout = ({ children, title }) =>
     }, [title])
 
     return (
-        <div>
+        <div className="d-flex flex-column vh-100">
             <MainNav />
-            {children}
+            <main className="d-flex flex-column flex-grow-1 justify-content-center align-items-center">
+                {children}
+            </main>
             <MainFooter />
         </div>
     )
