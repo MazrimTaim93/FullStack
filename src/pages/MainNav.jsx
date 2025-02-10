@@ -26,7 +26,7 @@ const MainNav = () => {
 								<Link className="nav-link" to="/about">About</Link>
 							</li>
 							<li className="nav-item">
-								<Link className="nav-link" to="/bootstrap">Bootstrap</Link>
+								<Link className="nav-link" to="/characters">Characters</Link>
 							</li>
 						</ul>
 					</div>
