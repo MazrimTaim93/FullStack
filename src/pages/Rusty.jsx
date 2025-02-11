@@ -4,6 +4,14 @@ const RUSTY_IMAGE = {
     photo: "https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/2dc03b2d-4e6f-4e36-9fdf-0a6ff335a2ba/dfva8bj-f5c2a8f3-8b7d-40fd-a133-0ffbdfacbad3.jpg/v1/fill/w_1024,h_1159,q_75,strp/human_fighter_by_yorsyh_dfva8bj-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTE1OSIsInBhdGgiOiJcL2ZcLzJkYzAzYjJkLTRlNmYtNGUzNi05ZmRmLTBhNmZmMzM1YTJiYVwvZGZ2YThiai1mNWMyYThmMy04YjdkLTQwZmQtYTEzMy0wZmZiZGZhY2JhZDMuanBnIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.YBeeH52d9tejzYh_8BdX0QphyjHnJlVGX8SvH6Sf0LE"
 }
 
+const changeHP = () => {
+    alert("HP changed")
+}
+
+const attackRoll = () => {
+    alert("Attack Rolled.")
+}
+
 const Rusty = () => {
     return (
         <MainLayout title="Rusty">
@@ -121,7 +129,7 @@ const Rusty = () => {
                             </table>
                         </div> {/*misc row*/ }
                     </div> {/*content column 1*/ }
-                    <div className="col-sm-2" id="skills-column">
+                    <div className="col-sm-2 mx-1" id="skills-column">
                         <table className="table table-dark">
                             <thead>
                                 <tr>
@@ -204,7 +212,7 @@ const Rusty = () => {
                             </tbody>
                         </table>
                     </div> {/*skills column*/}
-                    <div className="col-sm-2" id="combat column">
+                    <div className="col-sm-2 mx-1" id="combat column">
                         <div className="row" id="hp row">
                             <table className="table table-dark">
                                 <thead>
@@ -219,7 +227,7 @@ const Rusty = () => {
                                         <th>15</th>
                                     </tr>
                                     <tr>
-                                        <button>Change HP</button>
+                                        <button onClick={changeHP }>Change HP</button>
                                     </tr>
                                 </tbody>
                             </table>
@@ -240,11 +248,11 @@ const Rusty = () => {
                                         <th>2d6 + 2</th>
                                     </tr>
                                     <tr>
-                                        <button>Attack Roll</button>
+                                        <button onClick={attackRoll }>Attack Roll</button>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div> {/*attack2 row*/}
+                        </div> {/*attack1 row*/}
                         <div className="row" id="attack2 row">
                             <table className="table table-dark">
                                 <thead>
@@ -261,7 +269,7 @@ const Rusty = () => {
                                         <th>2d6 + 1</th>
                                     </tr>
                                     <tr>
-                                        <button>Attack Roll</button>
+                                        <button onClick={attackRoll}>Attack Roll</button>
                                     </tr>
                                 </tbody>
                             </table>
@@ -300,7 +308,7 @@ const Rusty = () => {
                             </table>
                         </div> {/*equipment row*/ }
                     </div> {/*combat column*/}
-                    <div className="col-sm-2" id="defenses column">
+                    <div className="col-sm-2 mx-1" id="defenses column">
                         <div className="row" id="AC row">
                             <table className="table table-dark">
                                 <thead>
@@ -367,6 +375,22 @@ const Rusty = () => {
                                 </tbody>
                             </table>
                         </div> {/*resistances row*/}
+                        <div className="row" id="conditions row">
+                            <table className="table table-dark">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Conditions
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>None</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> {/*conditions row*/}
                     </div> {/*defenses column*/ }
                 </div> {/*content row*/ }
             </div> {/*main div*/ }

@@ -8,8 +8,10 @@ import Characters from "./pages/Characters"
 import Class from "./pages/Class"
 import Ancestry from "./pages/Ancestry"
 import Rusty from "./pages/Rusty"
+import Home from "./pages/ReactHome"
+import Background from "./pages/Background"
 
-const Home = () => (<MainLayout title="Home"> <h1>This is my home page</h1> </MainLayout>)
+
 const NotFound = () => (<MainLayout title="Home"> <h1>Page not found</h1> </MainLayout>)
 
 function App() {
@@ -19,7 +21,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/about" element={<About />} />
-				<Route path="/bootstrap" element={<Bootstrap />} />
+				<Route path="/background" element={<Background />} />
 				<Route path="/characters" element={<Characters />} />
 				<Route path="/class" element={<Class />} />
 				<Route path="/ancestry" element={<Ancestry />} />

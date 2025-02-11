@@ -12,9 +12,8 @@ ul {
 }
 
 .box {
-    background-color: darkblue;
     display: flex;
-    border: 1px blue solid;
+    border: 1px white solid;
     padding: 5px;
     gap: 20px;
     justify-content: space-around;

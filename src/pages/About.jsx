@@ -5,10 +5,10 @@ import MainLayout from "../layouts/MainLayout.jsx"
 const About = () => {
     return (
         <MainLayout title="About Me">
-			<div className="container-fluid">
+			<div className="container-fluid vh-100 mt-4">
 				<h1>Jake Hurren</h1>
 
-				<h2>Personal Info:</h2>
+				<h2 className="mt-4">Personal Info:</h2>
 				<ul>
 					<li><strong>Major:</strong> Computer Science</li>
 					<li><strong>High School:</strong> Menwith Hill, 2011</li>
@@ -16,7 +16,7 @@ const About = () => {
 					<li><strong>Favorite Ice Cream:</strong> Peanut Butter</li>
 				</ul>
 
-				<div className="box">
+				<div className="box bg-success">
 					<div>
 						<h2>My favorite books</h2>
 						<ol>
