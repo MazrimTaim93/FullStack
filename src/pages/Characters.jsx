@@ -42,7 +42,7 @@ const Characters = () => {
                 </table>
                 <div className="row">
                     <div className="col-sm-6">
-                        <Link to="/class">
+                        <Link to="/info">
                             <button>Create New</button>
                         </Link>
                     </div>

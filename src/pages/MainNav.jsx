@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const WORDPRESS_IMAGES = {
 	uvulogo: "https://www.prof-fahim.online/cs3660wp/wp-content/uploads/2025/01/utah-valley-university.svg"
@@ -9,6 +9,8 @@ const login = () => {
 }
 
 const MainNav = () => {
+	const navigate = useNavigate();
+
     return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
 			<div className="container-fluid">
@@ -30,8 +32,9 @@ const MainNav = () => {
 						</li>
 					</ul>
 				</div>
-				<button className="btn btn-success ms-auto mr-1"
-					onClick={login}>Login</button>
+				<button className="btn btn-success ms-auto mr-1" onClick={() => navigate("/login")} >
+					Login
+				</button>
 			</div>
 		</nav>
     )
