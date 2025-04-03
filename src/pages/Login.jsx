@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

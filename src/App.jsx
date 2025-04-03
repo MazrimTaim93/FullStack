@@ -12,6 +12,7 @@ import Background from "./pages/Background"
 import AuthRoute from "./pages/AuthRoute"
 import Login from "./pages/Login"
 import Info from "./pages/Info"
+import CharacterSheet from "./pages/CharacterSheet"
 
 
 const NotFound = () => (<MainLayout title="Home"> <h1>Page not found</h1> </MainLayout>)
@@ -29,6 +30,7 @@ function App() {
 				<Route element={<AuthRoute />}>
 					<Route path="/characters" element={<Characters />} />
 				</Route>
+				<Route path="/charactersheet/:id" element={<CharacterSheet /> } />
 				<Route path="/class" element={<Class />} />
 				<Route path="/ancestry" element={<Ancestry />} />
 				<Route path="/rusty" element={<Rusty />} />

@@ -20,11 +20,22 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    const login = (userName, password) => {
+    const login = async (username, password) => {
+        const response = await fetch("http://localhost:8000/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (!response.ok) {
+            throw new Error("Invalid Credentials");
+        }
+
         const now = new Date();
         const fakeToken = {
-            userName,
-            password,
+            username, password,
             expiration: now.setHours(now.getHours() + 1)
         };
         localStorage.setItem("token", JSON.stringify(fakeToken));
