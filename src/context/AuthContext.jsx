@@ -7,21 +7,25 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(null);
 
     useEffect(() => {
-        let token = localStorage.getItem("token");
-        if (token) {
-            token = JSON.parse(token);
-            if (token.expiration < new Date().getTime()) {
+        let storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            storedToken = JSON.parse(storedToken);
+            if (storedToken.expiration < Date.now()) {
                 logout();
-            }
-            else {
+            } else {
                 setIsLoggedIn(true);
-                setToken(token);
+                setToken(storedToken);
             }
         }
     }, []);
 
+
     const login = async (username, password) => {
-        const response = await fetch("http://localhost:8000/api/login", {
+        const apiUrl = window.location.hostname === 'localhost'
+            ? 'http://localhost:8000'
+            : 'http://ec2-35-93-20-121.us-west-2.compute.amazonaws.com';
+
+        const response = await fetch(`${apiUrl}/api/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,16 +37,24 @@ export const AuthProvider = ({ children }) => {
             throw new Error("Invalid Credentials");
         }
 
-        const now = new Date();
-        const fakeToken = {
-            username, password,
-            expiration: now.setHours(now.getHours() + 1)
+        const data = await response.json();
+        const token = data.token;
+
+        // Optional: decode the token to extract expiration info
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        const expiration = payload.exp * 1000; // JWT exp is in seconds, JS Date uses ms
+
+        const storedToken = {
+            token,
+            expiration,
         };
-        localStorage.setItem("token", JSON.stringify(fakeToken));
-        setToken(fakeToken);
+
+        localStorage.setItem("token", JSON.stringify(storedToken));
+        setToken(storedToken);
         setIsLoggedIn(true);
         return true;
-    }
+    };
+
 
     const logout = () => {
         localStorage.removeItem("token");

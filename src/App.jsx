@@ -14,9 +14,7 @@ import Login from "./pages/Login"
 import Info from "./pages/Info"
 import CharacterSheet from "./pages/CharacterSheet"
 
-
 const NotFound = () => (<MainLayout title="Home"> <h1>Page not found</h1> </MainLayout>)
-
 function App() {
 
 	return (

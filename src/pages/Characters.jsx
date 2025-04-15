@@ -6,13 +6,16 @@ const deleteChar = () => {
     alert("Character deleted.")
 }
 
+const tokenData = JSON.parse(localStorage.getItem("token"));
+
 //Retrieve number of characters in the database
 const countCharacters = async () => {
     try {
         const response = await fetch("http://localhost:8000/api/character/count", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify({
                 filler: "Count please"
@@ -36,7 +39,8 @@ const getCharByNumber = async (numberRequest) => {
         const response = await fetch("http://localhost:8000/api/character/getbynum", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${tokenData?.token}`
             },
             body: JSON.stringify({
                 number: Number(numberRequest)
