@@ -14,11 +14,10 @@ export const AuthProvider = ({ children }) => {
                 logout();
             } else {
                 setIsLoggedIn(true);
-                setToken(storedToken);
+                setToken(storedToken.token);
             }
         }
     }, []);
-
 
     const login = async (username, password) => {
         const apiUrl = window.location.hostname === 'localhost'
@@ -38,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         const data = await response.json();
-        const token = data.token;
+        const token = data.jwt_token;
 
         // Optional: decode the token to extract expiration info
         const payload = JSON.parse(atob(token.split(".")[1]));
@@ -50,7 +49,7 @@ export const AuthProvider = ({ children }) => {
         };
 
         localStorage.setItem("token", JSON.stringify(storedToken));
-        setToken(storedToken);
+        setToken(token);
         setIsLoggedIn(true);
         return true;
     };

@@ -7,6 +7,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const { isLoggedIn, login } = useContext(AuthContext);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,7 +16,7 @@ function Login() {
         }
     }, [isLoggedIn, navigate])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!email || !password) {
@@ -23,7 +24,7 @@ function Login() {
             return;
         }
 
-        const success = login(email, password);
+        const success = await login(email, password);
 
         if (success)
             navigate("/characters");

@@ -6,12 +6,18 @@ const deleteChar = () => {
     alert("Character deleted.")
 }
 
+//authorization token
 const tokenData = JSON.parse(localStorage.getItem("token"));
+
+const apiUrl = window.location.hostname === 'localhost'
+    ? 'http://localhost:8000'
+    : 'http://ec2-35-93-20-121.us-west-2.compute.amazonaws.com';
 
 //Retrieve number of characters in the database
 const countCharacters = async () => {
+    console.log("DEBUG: Token being sent: ", tokenData?.token);
     try {
-        const response = await fetch("http://localhost:8000/api/character/count", {
+        const response = await fetch(`${apiUrl}/api/character/count`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -35,6 +41,7 @@ const countCharacters = async () => {
 
 //retrieve character info by number from the database
 const getCharByNumber = async (numberRequest) => {
+    console.log("DEBUG: Getting character #", numberRequest);
     try {
         const response = await fetch("http://localhost:8000/api/character/getbynum", {
             method: "POST",
@@ -68,10 +75,12 @@ const GenerateCharacterTable = () => {
     useEffect(() => { 
         const fetchCharacterData = async () => {
             const count = await countCharacters();
+            console.log("DEBUG: Character count: ", count);
 
             const elements = [];
-            for (var i = 0; i < count; i++) {
+            for (var i = 1; i <= count; i++) {
                 const character = await getCharByNumber(i);
+                console.log(`DEBUG: Character ${i}:`, character);
 
                 elements.push(<tr key={i}>
                     <th className="col-1" scope="row">{character.name}</th>
