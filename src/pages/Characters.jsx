@@ -2,10 +2,6 @@ import { Link } from "react-router-dom"
 import MainLayout from "../layouts/MainLayout";
 import { useState, useEffect } from "react";
 
-const deleteChar = () => {
-    alert("Character deleted.")
-}
-
 //authorization token
 const tokenData = JSON.parse(localStorage.getItem("token"));
 
@@ -39,6 +35,72 @@ const countCharacters = async () => {
     }
 }
 
+const handleDelete = async (number, setCharacters) => {
+    const result = await deleteChar(number);
+    if (result) {
+        // after successful delete, remove character from state
+        setCharacters(prev => prev.filter(c => c.number !== number));
+    }
+};
+
+//retrieve character info by number from the database
+const deleteChar = async (numberRequest) => {
+    console.log("DEBUG: Deleting character #", numberRequest);
+    try {
+        const response = await fetch("http://localhost:8000/api/character/delete", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${tokenData?.token}`
+            },
+            body: JSON.stringify({
+                number: Number(numberRequest)
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (!data.success) {
+            throw new Error("Character not found");
+        }
+        return data;
+    } catch (error) {
+        console.error("Error deleteing character : ", error);
+    }
+}
+
+const getAllCharacters = async () => {
+    try {
+        const response = await fetch(`${apiUrl}/api/character/getall`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${tokenData?.token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log("DEBUG: API Response:", data)
+
+        // Ensure data.ids is an array
+        if (!Array.isArray(data.ids)) {
+            console.error("Expected an array of IDs, but received:", data.ids);
+            return [];
+        }
+
+        const characterDetails = await Promise.all(data.ids.map(id => getCharByNumber(id)));
+        return characterDetails;
+    } catch (error) {
+        console.error("Error fetching character IDs: ", error);
+    }
+};
+
 //retrieve character info by number from the database
 const getCharByNumber = async (numberRequest) => {
     console.log("DEBUG: Getting character #", numberRequest);
@@ -68,43 +130,19 @@ const getCharByNumber = async (numberRequest) => {
     }
 }
 
-//create a table row for each character in the database
-const GenerateCharacterTable = () => {
-    const [CharElemArray, setCharElemArray] = useState([]);
+const Characters = () => {
+    const [characters, setCharacters] = useState([]);
 
-    useEffect(() => { 
+    useEffect(() => {
         const fetchCharacterData = async () => {
-            const count = await countCharacters();
-            console.log("DEBUG: Character count: ", count);
 
-            const elements = [];
-            for (var i = 1; i <= count; i++) {
-                const character = await getCharByNumber(i);
-                console.log(`DEBUG: Character ${i}:`, character);
-
-                elements.push(<tr key={i}>
-                    <th className="col-1" scope="row">{character.name}</th>
-                    <td className="col-1">{character.ancestry}</td>
-                    <td className="col-1">{character.background}</td>
-                    <td className="col-1">{character.charClass}</td>
-                    <td className="col-1">1</td>
-                    <td className="col-1">
-                        <Link to={`/CharacterSheet/${i}`}>
-                            <button>Select</button>
-                        </Link>
-                        <button onClick={deleteChar}>Delete</button>
-                    </td>
-                </tr>);
-            }
-            setCharElemArray(elements);
+            const ids = await getAllCharacters();
+            console.log(`Characters found: ${ids}`);
+            setCharacters(ids || []);
         };
         fetchCharacterData();
-        
-    }, [])
-    return <>{CharElemArray}</>;
-}
+    }, []);
 
-const Characters = () => {
     return (
         <MainLayout title="My Characters">
             <div className="container-fluid vh-100 mt-4">
@@ -124,7 +162,21 @@ const Characters = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <GenerateCharacterTable/>
+                        {characters.map((character) => (
+                            <tr key={character.number || character.name}>
+                                <th className="col-1" scope="row">{character.name}</th>
+                                <td className="col-1">{character.ancestry}</td>
+                                <td className="col-1">{character.background}</td>
+                                <td className="col-1">{character.charClass}</td>
+                                <td className="col-1">1</td>
+                                <td className="col-1">
+                                    <Link to={`/CharacterSheet/${character.number}`}>
+                                        <button>Select</button>
+                                    </Link>
+                                    <button onClick={() => handleDelete(character.number, setCharacters)}>Delete</button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
                 <div className="row">

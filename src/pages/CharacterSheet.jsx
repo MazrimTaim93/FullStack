@@ -2,16 +2,17 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 
-const changeHP = () => {
-    alert("HP changed")
-}
-
 //authorization token
 const tokenData = JSON.parse(localStorage.getItem("token"));
 
 const apiUrl = window.location.hostname === 'localhost'
     ? 'http://localhost:8000'
     : 'http://ec2-35-93-20-121.us-west-2.compute.amazonaws.com';
+
+
+const changeHP = () => {
+    alert("HP changed")
+}
 
 const CharacterSheet = () => {
     let { id } = useParams();
@@ -61,7 +62,7 @@ const CharacterSheet = () => {
     }
     
     return (
-        <MainLayout title="Rusty">
+        <MainLayout title={character.name}>
             <div className="container-fluid" id="container">
                 <div className="row" id="topRow">
                     <div className="col">
@@ -79,13 +80,13 @@ const CharacterSheet = () => {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">{character.name}</th>
-                                    <th>{character.charClass}</th>
-                                    <th>{character.ancestry}</th>
-                                    <th>{character.background}</th>
-                                    <th>1</th>
-                                    <th>0</th>
-                                    <th>Jake</th>
+                                    <td scope="row">{character.name}</td>
+                                    <td>{character.charClass}</td>
+                                    <td>{character.ancestry}</td>
+                                    <td>{character.background}</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                    <td>Jake</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -98,20 +99,21 @@ const CharacterSheet = () => {
                                 <thead>
                                     <tr>
                                         <th scope="row">Proficiency</th>
+                                        <td />
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <th scope="row">Training Bonus</th>
-                                        <th>+1</th>
+                                        <td>+1</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Expertise Bonus</th>
-                                        <th>+3</th>
+                                        <td>+3</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Mastery Bonus</th>
-                                        <th>+5</th>
+                                        <td>+5</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -121,24 +123,25 @@ const CharacterSheet = () => {
                                 <thead>
                                     <tr>
                                         <th scope="row">Attributes</th>
+                                        <td />
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <th scope="row">Might</th>
-                                        <th>+{character.might}</th>
+                                        <td>+{character.might}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Dexterity</th>
-                                        <th>+{character.dexterity}</th>
+                                        <td>+{character.dexterity}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Intellect</th>
-                                        <th>+{character.intellect}</th>
+                                        <td>+{character.intellect}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Charisma</th>
-                                        <th>+{character.charisma}</th>
+                                        <td>+{character.charisma}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -150,16 +153,15 @@ const CharacterSheet = () => {
                                         <th>
                                             Other Proficiencies
                                         </th>
+                                        <td />
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <th>Weapons</th>
-                                        <tr>
-                                            {character.className == "Fighter" ? (
-                                                <td>Expert with all weapons</td>) : (
-                                                <td>Expert with simple weapons</td>)}
-                                        </tr>
+                                        <td>{character.className == "Fighter" ? (
+                                            "Expert with all weapons") : (
+                                            "Expert with simple weapons")}</td>
                                     </tr>
                                     <tr>
                                         <th>Armor</th>
@@ -181,11 +183,11 @@ const CharacterSheet = () => {
                                     </tr>
                                     <tr>
                                         <th>Languages</th>
-                                        {character.ancestry == "Elf" ? (
-                                            <tr>Speaks Common and Elvish</tr>) :
-                                        character.ancestry == "Dwarf" ? (
-                                                <tr>Speaks Common and Dwarvish</tr>) :
-                                            (<tr>Speaks Common</tr>)}
+                                        <td>
+                                            {character.ancestry == "Elf" ? ("Speaks Common and Elvish") :
+                                        character.ancestry == "Dwarf" ? ("Speaks Common and Dwarvish") :
+                                            ("Speaks Common")}
+                                        </td>
                                         
                                     </tr>
                                 </tbody>
@@ -197,90 +199,91 @@ const CharacterSheet = () => {
                             <thead>
                                 <tr>
                                     <th scope="row">Skills</th>
+                                    <td />
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">Athletics</th>
-                                    <th>+{character.charClass == "Fighter" ? (character.might + 3) : character.might}</th>
+                                    <td>+{character.charClass == "Fighter" ? (character.might + 3) : character.might}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Grappling</th>
-                                    <th>+{character.charClass == "Fighter" ? (character.might + 3) : character.might}</th>
+                                    <td>+{character.charClass == "Fighter" ? (character.might + 3) : character.might}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Intimidation</th>
-                                    <th>+{character.charClass == "Fighter" ? (character.might + 3) : character.might}</th>
+                                    <td>+{character.charClass == "Fighter" ? (character.might + 3) : character.might}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Acrobatics</th>
-                                    <th>+{character.charClass == "Fighter" ? (character.dexterity + 3) :
+                                    <td>+{character.charClass == "Fighter" ? (character.dexterity + 3) :
                                         character.charClass == "Rogue" ? (character.dexterity + 5) :
-                                        character.dexterity}</th>
+                                        character.dexterity}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Lockpicking</th>
-                                    <th>+{character.charClass == "Rogue" ? (character.dexterity + 5) : character.dexterity}</th>
+                                    <td>+{character.charClass == "Rogue" ? (character.dexterity + 5) : character.dexterity}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Sleight of Hand</th>
-                                    <th>+{character.charClass == "Rogue" ? (character.dexterity + 5) : character.dexterity}</th>
+                                    <td>+{character.charClass == "Rogue" ? (character.dexterity + 5) : character.dexterity}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Stealth</th>
-                                    <th>+{character.charClass == "Rogue" ? (character.dexterity + 5) : character.dexterity}</th>
+                                    <td>+{character.charClass == "Rogue" ? (character.dexterity + 5) : character.dexterity}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Arcana</th>
-                                    <th>+{character.charClass == "Wizard" ? (character.intellect + 5) : character.intellect}</th>
+                                    <td>+{character.charClass == "Wizard" ? (character.intellect + 5) : character.intellect}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">History</th>
-                                    <th>+{character.charClass == "Wizard" ? (character.intellect + 3) : character.intellect}</th>
+                                    <td>+{character.charClass == "Wizard" ? (character.intellect + 3) : character.intellect}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Investigation</th>
-                                    <th>+{character.charClass == "Wizard" ? (character.intellect + 3) : character.intellect}</th>
+                                    <td>+{character.charClass == "Wizard" ? (character.intellect + 3) : character.intellect}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Medicine</th>
-                                    <th>+{character.charClass == "Cleric" ? (character.intellect + 3) : character.intellect}</th>
+                                    <td>+{character.charClass == "Cleric" ? (character.intellect + 3) : character.intellect}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Nature</th>
-                                    <th>+{character.intellect}</th>
+                                    <td>+{character.intellect}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Religion</th>
-                                    <th>+{character.charClass == "Fighter" ? (character.intellect + 3) : character.intellect}</th>
+                                    <td>+{character.charClass == "Fighter" ? (character.intellect + 3) : character.intellect}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Religion</th>
-                                    <th>+{character.charClass == "Cleric" ? (character.intellect + 5) : character.intellect}</th>
+                                    <td>+{character.charClass == "Cleric" ? (character.intellect + 5) : character.intellect}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Survival</th>
-                                    <th>+{character.intellect}</th>
+                                    <td>+{character.intellect}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Animal Handling</th>
-                                    <th>+{character.charisma}</th>
+                                    <td>+{character.charisma}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Deception</th>
-                                    <th>+{character.charClass == "Rogue" ? (character.charisma + 5) : character.charisma}</th>
+                                    <td>+{character.charClass == "Rogue" ? (character.charisma + 5) : character.charisma}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Insight</th>
-                                    <th>+{character.charClass == "Cleric" || character.charClass == "Wizard" ? (character.charisma + 3) : character.charisma}</th>
+                                    <td>+{character.charClass == "Cleric" || character.charClass == "Wizard" ? (character.charisma + 3) : character.charisma}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Performance</th>
-                                    <th>+{character.charisma}</th>
+                                    <td>+{character.charisma}</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Persuasion</th>
-                                    <th>+{character.charClass == "Cleric" ? (character.charisma + 3) : character.charisma}</th>
+                                    <td>+{character.charClass == "Cleric" ? (character.charisma + 3) : character.charisma}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -296,10 +299,11 @@ const CharacterSheet = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>15</th>
-                                        <th>15</th>
+                                        <td>15</td>
+                                        <td>15</td>
                                     </tr>
                                     <tr>
+                                        <td />
                                         <td>
                                             <button onClick={changeHP}>Change HP</button>
                                         </td>
@@ -318,9 +322,9 @@ const CharacterSheet = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>Mace</th>
-                                        <th>+5</th>
-                                        <th>2d6 + 2</th>
+                                        <td>Mace</td>
+                                        <td>+5</td>
+                                        <td>2d6 + 2</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -336,9 +340,9 @@ const CharacterSheet = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>Shortbow</th>
-                                        <th>+4</th>
-                                        <th>2d6 + 1</th>
+                                        <td>Shortbow</td>
+                                        <td>+4</td>
+                                        <td>2d6 + 1</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -354,24 +358,16 @@ const CharacterSheet = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>
-                                            Mace
-                                        </th>
+                                        <td>Mace</td>
                                     </tr>
                                     <tr>
-                                        <th>
-                                            Light Shield
-                                        </th>
+                                        <td>Light Shield</td>
                                     </tr>
                                     <tr>
-                                        <th>
-                                            Shortbow
-                                        </th>
+                                        <td>Shortbow</td>
                                     </tr>
                                     <tr>
-                                        <th>
-                                            Brigandine
-                                        </th>
+                                        <td>Brigandine</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -388,8 +384,8 @@ const CharacterSheet = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>15</th>
-                                        <th>16</th>
+                                        <td>15</td>
+                                        <td>16</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -406,15 +402,15 @@ const CharacterSheet = () => {
                                 <tbody>
                                     <tr>
                                         <th>Fortitude</th>
-                                        <th>+5</th>
+                                        <td>+{ character.fortitude}</td>
                                     </tr>
                                     <tr>
                                         <th>Reflex</th>
-                                        <th>+4</th>
+                                        <td>+{character.reflex}</td>
                                     </tr>
                                     <tr>
                                         <th>Will</th>
-                                        <th>+1</th>
+                                        <td>+{character.will}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -430,16 +426,7 @@ const CharacterSheet = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>Bludgeoning</th>
-                                        <th>3</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Piercing</th>
-                                        <th>3</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Slashing</th>
-                                        <th>3</th>
+                                        <td>None</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -455,7 +442,7 @@ const CharacterSheet = () => {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th>None</th>
+                                        <td>None</td>
                                     </tr>
                                 </tbody>
                             </table>

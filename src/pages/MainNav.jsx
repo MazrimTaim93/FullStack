@@ -16,7 +16,7 @@ const MainNav = () => {
 			<div className="container-fluid">
 				<Link className="navbar-brand" to="/">
 					<img src={WORDPRESS_IMAGES.uvulogo} alt="logo" width="75" height="24" className="d-inline-block" />
-					<span className="ms-2">Demo React App</span>
+					<span className="ms-2">Character Creator</span>
 				</Link>
 				
 				<div className="collapse navbar-collapse" id="navbarNav">

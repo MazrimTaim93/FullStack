@@ -3,7 +3,7 @@ function Home() {
     return (
         <MainLayout title="Home" >
             <div className="container-fluid vh-100 mt-4">
-                <h1>Character Creator</h1>
+                <h1>Home</h1>
                 <p className="mt-4">
                     This website will allow you to create, customize, track, and level up any number of characters for my homemade RPG ruleset. <br/>
                     The characters page will contain your previously created characters and allow you to build new ones. <br/> When you choose to 
